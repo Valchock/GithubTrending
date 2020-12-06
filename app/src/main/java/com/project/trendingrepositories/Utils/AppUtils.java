@@ -23,6 +23,7 @@ public class AppUtils {
         return instance;
     }
 
+
     public String loadJSONFromAsset(Context context) {
         String json = null;
         try {

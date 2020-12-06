@@ -6,7 +6,7 @@ import retrofit2.Response;
 
 public class ApiResponse<T> {
     public ApiResponse<T> create(Throwable error) {
-        return new ApiErrorResponse<>(error.getMessage().equals("") ? error.getMessage() : "Unknown error\nCheck network connection");
+        return new ApiErrorResponse<>(!error.getMessage().equals("") ? error.getMessage() : "Unknown error\nCheck network connection");
     }
 
     public ApiResponse<T> create(Response<T> response) {

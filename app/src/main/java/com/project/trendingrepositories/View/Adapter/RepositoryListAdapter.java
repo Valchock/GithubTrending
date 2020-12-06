@@ -49,7 +49,7 @@ public class RepositoryListAdapter extends RecyclerView.Adapter<RepositoryListAd
         holder.repoName.setText(repoName);
         holder.rating.setText(rating);
         requestManager
-                .load(repositoryList.get(position).getBuiltBy().get(0).getAvatar())
+                .load(repositoryList.get(position).getAvatar())
                 .into(holder.repoImg);
     }
 

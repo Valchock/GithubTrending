@@ -2,13 +2,22 @@ package com.project.trendingrepositories.Model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.project.trendingrepositories.Persistence.TypeConvertors;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+@Entity(tableName = "repositories")
 public class Repositories {
     @SerializedName("author")
     @Expose
     private String author;
+    @PrimaryKey
+    @NonNull
     @SerializedName("name")
     @Expose
     private String name;
@@ -36,6 +45,7 @@ public class Repositories {
     @SerializedName("currentPeriodStars")
     @Expose
     private Integer currentPeriodStars;
+    @TypeConverters(TypeConvertors.class)
     @SerializedName("builtBy")
     @Expose
     private List<BuiltBy> builtBy = null;
