@@ -38,7 +38,7 @@ Based on mvvm architecture and repository pattern.
 <li>Android Architecture Components (LiveData, ViewModel, Room Persistence Library)</li>
 <li>Retrofit for API integration.</li>
 <li>Room Data Persistence</li>
-<li>Okhhtp for implementing interceptor, logging </li>
+<li>Okhttp for implementing interceptor, logging </li>
 <li>Glide for image loading.</li>
 <li>ButterKnife for injecting views to android components</li>
 </ul>
