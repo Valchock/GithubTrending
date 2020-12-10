@@ -1,5 +1,6 @@
 package com.project.trendingrepositories.Utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ShareCompat;
 
 public class AppUtils {
 
@@ -55,12 +57,6 @@ public class AppUtils {
             return "N/A";
     }
 
-   /* public boolean isNetworkAvailable(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }*/
-
     public boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
@@ -96,6 +92,15 @@ public class AppUtils {
                     }
                 });
         alertDialog.show();
+    }
+
+    public  void shareUrl(Activity activity, String url) {
+        ShareCompat.IntentBuilder
+                .from(activity)
+                .setType("text/plain")
+                .setChooserTitle("Share URL")
+                .setText(url)
+                .startChooser();
     }
 
 

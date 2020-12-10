@@ -1,8 +1,8 @@
 package com.project.trendingrepositories.View;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.project.trendingrepositories.Model.Repositories;
 import com.project.trendingrepositories.R;
 import com.project.trendingrepositories.Utils.AppUtils;
+import com.project.trendingrepositories.Utils.Constants;
 import com.project.trendingrepositories.Utils.Resource;
 import com.project.trendingrepositories.View.Adapter.RepositoryListAdapter;
 import com.project.trendingrepositories.Viewmodel.RepositoryListViewModel.RepositoryListViewModel;
@@ -34,7 +35,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RepositoryListActivity extends LoaderActivity implements SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener, View.OnClickListener {
+public class RepositoryListActivity extends LoaderActivity implements SwipeRefreshLayout.OnRefreshListener, SearchView.OnQueryTextListener, View.OnClickListener, RepositoryListAdapter.RecyclerViewClickInterface<Repositories> {
 
     @BindView(R.id.repository_recycler)
     RecyclerView repositoryRecycler;
@@ -78,13 +79,11 @@ public class RepositoryListActivity extends LoaderActivity implements SwipeRefre
         if (repositoryResource.data != null) {
             switch (repositoryResource.status) {
                 case LOADING: {
-                    Log.e(TAG, "onChanged: Loading message: " + repositoryResource.message);
                     if (showLoader)
                         showProgressBar(true);
                     break;
                 }
                 case ERROR: {
-                    Log.e(TAG, "onChanged: Error message: " + repositoryResource.message);
                     if (showLoader)
                         showProgressBar(false);
                     if (repositoryResource.data.size() > 0) {
@@ -103,7 +102,6 @@ public class RepositoryListActivity extends LoaderActivity implements SwipeRefre
                     break;
                 }
                 case SUCCESS: {
-                    Log.d(TAG, "onChanged: cache has been refreshed.");
                     if (showLoader)
                         showProgressBar(false);
                     if (!AppUtils.getInstance().isNetworkAvailable(context) && repositoryResource.data.size() < 1) {
@@ -137,7 +135,7 @@ public class RepositoryListActivity extends LoaderActivity implements SwipeRefre
 
 
     private void initRepositoryRecyclerView() {
-        repositoryListAdapter = new RepositoryListAdapter(initGlide(), context);
+        repositoryListAdapter = new RepositoryListAdapter(initGlide(), context, this);
         repositoryRecycler.setLayoutManager(new LinearLayoutManager(this));
         repositoryRecycler.setAdapter(repositoryListAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
@@ -155,6 +153,12 @@ public class RepositoryListActivity extends LoaderActivity implements SwipeRefre
                 .setDefaultRequestOptions(options);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        repositoryRecycler.setVisibility(View.GONE);
+        observeRepositoriesResponse(true);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -191,6 +195,15 @@ public class RepositoryListActivity extends LoaderActivity implements SwipeRefre
         if (view.getId() == R.id.try_again_btn) {
             noNetworkLayout.setVisibility(View.GONE);
             observeRepositoriesResponse(true);
+        }
+    }
+
+    @Override
+    public void onItemClick(Repositories repositories) {
+        if (repositories != null) {
+            Intent intent = new Intent(context, RepositoryDetailsActivity.class);
+            intent.putExtra(Constants.REPOSITORY_DATA, repositories);
+            startActivity(intent);
         }
     }
 }

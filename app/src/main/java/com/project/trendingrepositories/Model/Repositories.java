@@ -1,5 +1,8 @@
 package com.project.trendingrepositories.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.project.trendingrepositories.Persistence.TypeConvertors;
@@ -12,7 +15,7 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 @Entity(tableName = "repositories")
-public class Repositories {
+public class Repositories implements Parcelable {
     @SerializedName("author")
     @Expose
     private String author;
@@ -49,6 +52,48 @@ public class Repositories {
     @SerializedName("builtBy")
     @Expose
     private List<BuiltBy> builtBy = null;
+
+    public Repositories() {
+
+    }
+
+    protected Repositories(Parcel in) {
+        author = in.readString();
+        name = in.readString();
+        avatar = in.readString();
+        url = in.readString();
+        description = in.readString();
+        language = in.readString();
+        languageColor = in.readString();
+        if (in.readByte() == 0) {
+            stars = null;
+        } else {
+            stars = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            forks = null;
+        } else {
+            forks = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            currentPeriodStars = null;
+        } else {
+            currentPeriodStars = in.readInt();
+        }
+    }
+
+    public static final Creator<Repositories> CREATOR = new Creator<Repositories>() {
+        @Override
+        public Repositories createFromParcel(Parcel in) {
+            return new Repositories(in);
+        }
+
+        @Override
+        public Repositories[] newArray(int size) {
+            return new Repositories[size];
+        }
+    };
+
 
     public String getAuthor() {
         return author;
@@ -136,6 +181,40 @@ public class Repositories {
 
     public void setBuiltBy(List<BuiltBy> builtBy) {
         this.builtBy = builtBy;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(author);
+        parcel.writeString(name);
+        parcel.writeString(avatar);
+        parcel.writeString(url);
+        parcel.writeString(description);
+        parcel.writeString(language);
+        parcel.writeString(languageColor);
+        if (stars == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(stars);
+        }
+        if (forks == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(forks);
+        }
+        if (currentPeriodStars == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(currentPeriodStars);
+        }
     }
 
     public class BuiltBy {

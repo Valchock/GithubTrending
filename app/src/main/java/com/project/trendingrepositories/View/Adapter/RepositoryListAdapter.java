@@ -20,22 +20,27 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RepositoryListAdapter extends RecyclerView.Adapter<RepositoryListAdapter.RepositoryViewHolder> implements Filterable {
 
+    public interface RecyclerViewClickInterface<T>{
+        void onItemClick(T t);
+    }
 
     private ArrayList<Repositories> repositoryList;
     private ArrayList<Repositories> repositoryListAll;
     RequestManager requestManager;
     Context context;
+    RecyclerViewClickInterface<Repositories> listener;
 
-
-    public RepositoryListAdapter(RequestManager requestManager, Context context) {
+    public RepositoryListAdapter(RequestManager requestManager, Context context, RecyclerViewClickInterface<Repositories> listener) {
         this.requestManager = requestManager;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -63,6 +68,15 @@ public class RepositoryListAdapter extends RecyclerView.Adapter<RepositoryListAd
         requestManager
                 .load(repositoryList.get(position).getAvatar())
                 .into(holder.repoImg);
+        holder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int clickedPosition = holder.getAdapterPosition();
+                if (listener != null && clickedPosition != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(repositoryList.get(clickedPosition));
+                }
+            }
+        });
     }
 
     @Override
@@ -130,6 +144,8 @@ public class RepositoryListAdapter extends RecyclerView.Adapter<RepositoryListAd
         RequestManager requestManager;
         @BindView(R.id.coding_language_color)
         ImageButton codingLanguageColor;
+        @BindView(R.id.item_layout)
+        ConstraintLayout layout;
 
         public RepositoryViewHolder(@NonNull View itemView, RequestManager requestManager) {
             super(itemView);

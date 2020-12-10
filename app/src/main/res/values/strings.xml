@@ -8,5 +8,6 @@
     <string name="ok">Ok</string>
     <string name="no_network_connection">No network connection</string>
     <string name="try_again">TRY AGAIN</string>
+    <string name="share">SHARE</string>
     <string name="error">Error</string>
 </resources>
