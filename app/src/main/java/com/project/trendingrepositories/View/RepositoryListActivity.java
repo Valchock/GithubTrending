@@ -13,8 +13,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.project.trendingrepositories.Model.Repositories;
 import com.project.trendingrepositories.R;
 import com.project.trendingrepositories.Utils.AppUtils;
@@ -62,7 +60,7 @@ public class RepositoryListActivity extends LoaderActivity implements SwipeRefre
         setTitle(getResources().getString(R.string.app_title));
         repositoryListViewModel = ViewModelProviders.of(this).get(RepositoryListViewModel.class);
         initRepositoryRecyclerView();
-        //observeRepositoriesResponse(true);
+        observeRepositoriesResponse(true);
     }
 
     private void observeRepositoriesResponse(Boolean showLoader) {
@@ -144,10 +142,10 @@ public class RepositoryListActivity extends LoaderActivity implements SwipeRefre
         repositoryRecycler.setAdapter(repositoryListAdapter);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         repositoryRecycler.addItemDecoration(dividerItemDecoration);
-        String jsonString = AppUtils.getInstance().loadJSONFromAsset(this);
+        /*String jsonString = AppUtils.getInstance().loadJSONFromAsset(this);
         ArrayList<Repositories> repositoryList = new Gson().fromJson(jsonString, new TypeToken<ArrayList<Repositories>>() {
         }.getType());
-        repositoryListAdapter.setRepositoriesData(repositoryList);
+        repositoryListAdapter.setRepositoriesData(repositoryList);*/
     }
 
     private RequestManager initGlide() {
