@@ -1,5 +1,5 @@
 # GithubTrending
-An Android App that lists the most trending repositories from Github.If the app is freshly installed, then there will not be any data stored inside the local database. Because there is no data to show, a loading progress bar UI will be shown. Meanwhile the app is going to make a request call to the server via a web service to get all the repository list.
+An Android App that lists the most trending repositories from Github.If the app is freshly installed, then there will not be any data stored inside the local database. because there is no data to show, a loading progress bar UI will be shown. Meanwhile the app is going to make a request call to the server via a web service to get all the repository list.
 If the response is unsuccessful then the error message UI will be shown with the ability to retry a call by pressing a button. When a request call is successful at last, then the response data will be saved to a local database. AfterSometime ,if your network goes off data will be loaded from cache.
 
 <img src="screenshots/repositoryList.png" width = "200">  <img src="screenshots/repositoryDetails.png" width = "200"> <img src="screenshots/shareRepoUrl.png" width = "200"> <img src="screenshots/offline.png" width = "200">
