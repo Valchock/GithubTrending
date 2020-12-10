@@ -8,6 +8,7 @@ import com.project.trendingrepositories.Persistence.RepositoryDao;
 import com.project.trendingrepositories.Persistence.RepositoryDatabase;
 import com.project.trendingrepositories.Utils.ApiResponse;
 import com.project.trendingrepositories.Utils.AppExecutors;
+import com.project.trendingrepositories.Utils.AppUtils;
 import com.project.trendingrepositories.Utils.NetworkBoundResource;
 import com.project.trendingrepositories.Utils.Resource;
 
@@ -22,6 +23,7 @@ public class GithubTrendingRepositories {
 
     private static GithubTrendingRepositories instance;
     private RepositoryDao repositoryDao;
+    Context context;
 
 
     public static GithubTrendingRepositories getInstance(Context context) {
@@ -37,6 +39,7 @@ public class GithubTrendingRepositories {
 
 
     private GithubTrendingRepositories(Context context) {
+        this.context = context;
         repositoryDao = RepositoryDatabase.getInstance(context).getRepositoryDao();
     }
 
@@ -52,7 +55,11 @@ public class GithubTrendingRepositories {
 
             @Override
             protected boolean shouldFetch(@Nullable List<Repositories> data) {
-                return true;
+                if (AppUtils.getInstance().isNetworkAvailable(context)) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
 
             @NonNull

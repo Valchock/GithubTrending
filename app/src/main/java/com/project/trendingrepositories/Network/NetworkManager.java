@@ -2,6 +2,7 @@ package com.project.trendingrepositories.Network;
 
 import android.util.Log;
 
+import com.project.trendingrepositories.BuildConfig;
 import com.project.trendingrepositories.Utils.Constants;
 import com.project.trendingrepositories.Utils.LiveDataCallAdapterFactory;
 
@@ -56,7 +57,7 @@ public class NetworkManager {
 
 
     private Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .client(client)
             .addCallAdapterFactory(new LiveDataCallAdapterFactory())
             .addConverterFactory(GsonConverterFactory.create());
