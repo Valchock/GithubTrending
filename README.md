@@ -7,11 +7,11 @@ If the response is unsuccessful then the error message UI will be shown with the
 
 <b>App Features</b>
 <ul>
-<li>Users can view the most trending repositories from Github.</li>
-<li>Users can search repositories.</li>
-<li>Pull to refresh option to force fetch repositories from remote.</li>
+<li>Users can view the most trending repositories from Github</li>
+<li>Users can search repositories</li>
+<li>Pull to refresh option to force fetch repositories from remote</li>
 <li>Offline Support</li>
-<li>Users can share repositories they like.</li>
+<li>Users can share repositories they like</li>
 <li>Product flavor Dev- Mock Server- https://private-efbf4-githubtrendingapi.apiary-mock.com/  Prod - Production Server - https://ghapi.huchen.dev/ (not working)</li>
 </ul>
 
@@ -23,11 +23,11 @@ Based on mvvm architecture and repository pattern.
 
 <b>The app includes the following main components:<b>
 <ul>
-<li>Persistence Folder - Room database that servers as a single source of truth for data presented to the user.</li>
-<li>NetworkManger - Used to fetch api service.</li>
-<li>GitHubTrendingRepositories- A repository that works with the database and the api service, providing a unified data interface.</li>
-<li>RepositoryListViewModel- A ViewModel that provides data specific for the UI.</li>
-<li>View Folder- The UI, which shows a visual representation of the data in the ViewModel.</li>
+<li>Persistence Folder - Room database that servers as a single source of truth for data presented to the user</li>
+<li>NetworkManger - Used to fetch api service</li>
+<li>GitHubTrendingRepositories- A repository that works with the database and the api service, providing a unified data interface</li>
+<li>RepositoryListViewModel- A ViewModel that provides data specific for the UI</li>
+<li>View Folder- The UI, which shows a visual representation of the data in the ViewModel</li>
 </ul>
 
 <b>App Specs</b>
